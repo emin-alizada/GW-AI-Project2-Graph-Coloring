@@ -11,6 +11,8 @@
 
 Make sure you have installed Node.js and npm on your local machine. My machine is running MacOS Monterey, Node v16.11.0, npm v8.0.0
 
+If you don't have Node.js, you can download it from [here](https://nodejs.org/en/download/).
+
 Clone the project from the GitHub repository, and run the following command on root directory of the project:
 
     npm install
