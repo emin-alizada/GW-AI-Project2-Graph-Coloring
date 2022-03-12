@@ -5,7 +5,7 @@ function inference(inferenceArcs, vertices) {
     while (inferenceArcs.length > 0) {
         let [from, to] = inferenceArcs.pop(); // From is Xi, to is Xj from the paper
 
-        const removed = remove_inconsistent_values(from, to);
+        const removed = removeInconsistentValues(from, to);
 
         if (removed) {
 
@@ -23,7 +23,7 @@ function inference(inferenceArcs, vertices) {
     return true;
 }
 
-function remove_inconsistent_values(from, to) {
+function removeInconsistentValues(from, to) {
     let removed = false;
 
     if (from.domain.length === 1) {
@@ -38,7 +38,7 @@ function remove_inconsistent_values(from, to) {
 }
 
 // This function orders the domain values of the variable according to LCV heuristic
-function order_domain_values(vertices, vertex) {
+function orderDomainValues(vertices, vertex) {
     const rankingOfDomainValues = vertex.domain.map(domainValue => {
         const count = vertex.getNeighbors(vertices).filter(neighbor => neighbor.domain.findIndex((dValue) => dValue === domainValue) !== -1).length
 
@@ -52,7 +52,7 @@ function order_domain_values(vertices, vertex) {
 }
 
 // This function selects unassigned variables according to MRV heuristic
-function select_unassigned(vertices) {
+function selectUnassigned(vertices) {
     let min = Number.MAX_SAFE_INTEGER;
     let selectedVertex = null;
 
@@ -66,24 +66,28 @@ function select_unassigned(vertices) {
     return selectedVertex;
 }
 
-function is_possible(color, selectedVertex, vertices) {
+function isPossibleToAssign(color, selectedVertex, vertices) {
     return selectedVertex.getNeighbors(vertices).filter(neighbor => neighbor.assignedColor === color).length === 0;
 }
 
-function backtrackplus(vertices){
+function backtracking(vertices){
+    // Checking if all vertices have been assigned
     if (!vertices.some(vertex => vertex.assignedColor === -1)) {
         return vertices;
     }
 
-    const selectedVertex = select_unassigned(vertices);
-    const orderedDomainValuesOfSelectedVertex = order_domain_values(vertices, selectedVertex);
+    // Selecting unassigned variable with MRV heuristic
+    const selectedVertex = selectUnassigned(vertices);
+    // Ordering domain values of the selected variable according to LCV heuristic
+    const orderedDomainValuesOfSelectedVertex = orderDomainValues(vertices, selectedVertex);
 
     for (let domainValue of orderedDomainValuesOfSelectedVertex) {
+        // Creating a copy of the vertices array, so that the original one is not modified
+        // To be able to backtrack
         const verticesCopy = vertices.map(vertex => new Vertex('copy', vertex));
         const selectedVertexFromCopy = verticesCopy.find(vertex => vertex.name === selectedVertex.name);
 
-        if (is_possible(domainValue, selectedVertexFromCopy, verticesCopy)) {
-            // TODO Check 147 line from the code
+        if (isPossibleToAssign(domainValue, selectedVertexFromCopy, verticesCopy)) {
             selectedVertexFromCopy.domain = [domainValue];
 
             const inferenceArcs = selectedVertexFromCopy.getNeighbors(verticesCopy).filter(neighbor => neighbor.assignedColor === -1).map(neighbor => [selectedVertexFromCopy, neighbor]);
@@ -92,7 +96,7 @@ function backtrackplus(vertices){
 
             if (inferenceResult) {
                 selectedVertexFromCopy.assignedColor = domainValue;
-                return backtrackplus(verticesCopy);
+                return backtracking(verticesCopy);
             }
 
         }
@@ -101,4 +105,4 @@ function backtrackplus(vertices){
     return false;
 }
 
-export default backtrackplus;
+export default backtracking;
