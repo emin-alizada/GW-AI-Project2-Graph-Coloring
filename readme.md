@@ -1,6 +1,6 @@
-# Project 2: CSP Graph Coloring (CS 6511 – AI)
+![Github Unit Testiing](https://github.com/emin-alizada/GW-AI-Project2-Graph-Coloring/actions/workflows/node.js.yml/badge.svg?branch=master)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+# Project 2: CSP Graph Coloring (CS 6511 – AI)
 
 ### The George Washington University
 ### Spring 2022
