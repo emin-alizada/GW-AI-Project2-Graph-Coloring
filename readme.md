@@ -1,5 +1,7 @@
 # Project 2: CSP Graph Coloring (CS 6511 – AI)
 
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
 ### The George Washington University
 ### Spring 2022
 ### Professor: Dr. Amrinder Arora
@@ -56,6 +58,8 @@ As the vertices are now properly constructed, I use `backtracking(vertices)` fun
 Finally, I print the solution to the console, if there exists one.
 
 All the files are well documented with comments, but let's see how the backtracking function works as it is the core of the algorithm.
+
+## Backtracking Details
 
 Backtracking is implemented using a recursive function. The function is called with the list of vertices. As the fisrt thing I check if all the vertices have assigned a color. If so, I return the list of vertices. Otherwise, I pick a vertex with `selectUnassigned(vertices)` function which implements min remaining values heuristic. Then I order domain values of the vertex with `orderDomainValues(vertices, vertex)` function which implements the least constraining value heuristic. 
 
