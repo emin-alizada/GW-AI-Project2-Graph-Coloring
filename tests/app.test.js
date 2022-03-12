@@ -29,7 +29,6 @@ testsWithSolutions.forEach(testUnit => {
             solution += `${vertex.name}: ${vertex.assignedColor}\n`;
         })
 
-        expect(solution).toBe(false);
-        // expect(solution).toBe(testUnit.solution);
+        expect(solution).toBe(testUnit.solution);
     });
 })
