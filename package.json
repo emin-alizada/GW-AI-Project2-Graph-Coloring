@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "run": "node src/app.js",
+    "code": "node src/app.js",
     "test": "jest"
   },
   "devDependencies": {

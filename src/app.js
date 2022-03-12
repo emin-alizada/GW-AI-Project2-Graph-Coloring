@@ -23,7 +23,7 @@ const { edgeList, colorCount } = getEdgeListAndColorCount("./inputs/input3.txt")
 // Transforming read input to desired format, creating list of vertices
 let vertices = createVerticesFromEdgeList(edgeList, colorCount)
 
-// Solution oof problem with backtracking
+// Solution of problem with backtracking and usage of heruistics
 const resultVertices = backtracking(vertices);
 
 if (resultVertices) {
