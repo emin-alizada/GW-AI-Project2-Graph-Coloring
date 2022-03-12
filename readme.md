@@ -19,7 +19,7 @@ Then run the following command to run the application:
 
     npm run code
 
-To test the application run the following command:
+To run the unit tests run the following command:
 
     npm run test
 
